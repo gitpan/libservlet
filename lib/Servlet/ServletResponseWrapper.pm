@@ -42,10 +42,10 @@ sub getLocale {
     $self->getResponse()->getLocale();
 }
 
-sub getOutputStream {
+sub getOutputHandle {
     my $self = shift;
 
-    $self->getResponse()->getOutputStream();
+    $self->getResponse()->getOutputHandle();
 }
 
 sub getWriter {

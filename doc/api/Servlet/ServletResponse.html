@@ -38,7 +38,7 @@
 <PRE>
   my $locale = $response-&gt;getLocale();</PRE>
 <PRE>
-  my $output = $response-&gt;getOutputStream();</PRE>
+  my $output = $response-&gt;getOutputHandle();</PRE>
 <PRE>
   my $writer = $response-&gt;getWriter();</PRE>
 <PRE>
@@ -90,11 +90,10 @@ response. If not charset has been assigned, it is implicitly set to
 <DD>
 Returns the locale assigned to the response.
 <P></P>
-<DT><STRONG><A NAME="item_getOutputStream"><CODE>getOutputStream()</CODE></A></STRONG><BR>
+<DT><STRONG><A NAME="item_getOutputHandle"><CODE>getOutputHandle()</CODE></A></STRONG><BR>
 <DD>
-Returns a <STRONG>Servlet::ServletOutputStream</STRONG> suitable for writing binary
-data in the response. The servlet container does not encode the binary
-data.
+Returns a <STRONG>IO::Handle</STRONG> suitable for writing binary data in the
+response. The servlet container does not encode the binary data.
 <P>Calling <CODE>flush()</CODE> commits the response.</P>
 <P>Either this method or <A HREF="#item_getWriter"><CODE>getWriter()</CODE></A> may be called to write the body,
 not both.</P>
@@ -117,7 +116,7 @@ before calling this metod for the charset to take effect.
 <P>If necessary, the content type of the response is modified to reflect
 the character encoding used.</P>
 <P>Calling <CODE>flush()</CODE> commits the response.</P>
-<P>Either this method or <A HREF="#item_getOutputStream"><CODE>getOutputStream()</CODE></A> may be called to write the
+<P>Either this method or <A HREF="#item_getOutputHandle"><CODE>getOutputHandle()</CODE></A> may be called to write the
 body, not both.</P>
 <P><STRONG>Throws:</STRONG></P>
 <DL>
@@ -127,7 +126,7 @@ if the charset specified in <A HREF="#item_setContentType"><CODE>setContentType(
 <P></P>
 <DT><STRONG><STRONG>Servlet::Util::IllegalStateException</STRONG></STRONG><BR>
 <DD>
-if the <A HREF="#item_getOutputStream"><CODE>getOutputStream()</CODE></A> method has already been called for this
+if the <A HREF="#item_getOutputHandle"><CODE>getOutputHandle()</CODE></A> method has already been called for this
 request
 <P></P>
 <DT><STRONG><STRONG>Servlet::Util::IOException</STRONG></STRONG><BR>
@@ -194,6 +193,16 @@ this method sets the HTTP <EM>Content-Length</EM> header.
 <DD>
 The length of the content being returned to the client
 <P></P></DL>
+<DT><STRONG><CODE>setContentLength($len)</CODE></STRONG><BR>
+<DD>
+Sets the length of the content body in the response. In HTTP servlets,
+this method sets the HTTP <EM>Content-Length</EM> header.
+<P><STRONG>Parameters:</STRONG></P>
+<DL>
+<DT><STRONG><EM>$len</EM></STRONG><BR>
+<DD>
+The length of the content being returned to the client
+<P></P></DL>
 <DT><STRONG><A NAME="item_setContentType"><CODE>setContentType($type)</CODE></A></STRONG><BR>
 <DD>
 Sets the content type of the response. The content type may include
@@ -222,7 +231,7 @@ The locale of the response
 <P>
 <HR>
 <H1><A NAME="see also">SEE ALSO</A></H1>
-<P><A HREF="../../api/Servlet/ServletOutputStream.html">the Servlet::ServletOutputStream manpage</A></P>
+<P><A HREF="../../api/IO/Handle.html">the IO::Handle manpage</A></P>
 <P>
 <HR>
 <H1><A NAME="author">AUTHOR</A></H1>

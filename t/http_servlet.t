@@ -33,7 +33,7 @@ eval { $servlet->service($request, $response) };
 ok(!$@);
 
 # type checking exception
-eval { $servlet->service($request, $request->getInputStream()) };
+eval { $servlet->service($request, $request->getInputHandle()) };
 ok($@);
 
 for my $m (sort keys %$Methods) {

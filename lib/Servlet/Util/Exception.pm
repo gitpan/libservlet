@@ -12,7 +12,7 @@ use warnings;
 # Exception::Class::import(), things break. i can't figure out why,
 # and it's not really important.
 
-Exception::Class::Base->do_trace(1);
+__PACKAGE__->do_trace(1);
 
 sub new {
     my $type = shift;
@@ -42,30 +42,42 @@ package Servlet::Util::IOException;
 
 use base qw(Servlet::Util::Exception);
 
+__PACKAGE__->do_trace(1);
+
 1;
 package Servlet::Util::IllegalArgumentException;
 
 use base qw(Servlet::Util::Exception);
+
+__PACKAGE__->do_trace(1);
 
 1;
 package Servlet::Util::IllegalStateException;
 
 use base qw(Servlet::Util::Exception);
 
+__PACKAGE__->do_trace(1);
+
 1;
 package Servlet::Util::IndexOutOfBoundsException;
 
 use base qw(Servlet::Util::Exception);
+
+__PACKAGE__->do_trace(1);
 
 1;
 package Servlet::Util::UndefReferenceException;
 
 use base qw(Servlet::Util::Exception);
 
+__PACKAGE__->do_trace(1);
+
 1;
 package Servlet::Util::UnsupportedEncodingException;
 
 use base qw(Servlet::Util::Exception);
+
+__PACKAGE__->do_trace(1);
 
 1;
 __END__

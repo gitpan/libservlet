@@ -6,7 +6,7 @@ use warnings;
 
 use Test;
 
-BEGIN { plan tests => 45 }
+BEGIN { plan tests => 44 }
 
 use Servlet::ServletRequestWrapper ();
 use Servlet::Test::Request;
@@ -33,9 +33,8 @@ for my $method (@methods) {
     ok($rv, $method);
 }
 
-# returns an input stream object
-my $input = eval { $wreq->getInputStream() };
+# returns an input handle object
+my $input = eval { $wreq->getInputHandle() };
 ok(!$@);
-ok($input->isa("Servlet::ServletInputStream"));
 
 exit;

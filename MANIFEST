@@ -1,3 +1,5 @@
+CHANGES
+ChangeLog
 MANIFEST
 Makefile.PL
 NEWS
@@ -42,7 +44,9 @@ doc/api/Servlet/SingleThreadModel.html
 doc/api/Servlet/UnavailableException.html
 doc/api/Servlet/Util/Event.html
 doc/api/Servlet/Util/Exception.html
+doc/api/Servlet/Util/Principal.html
 doc/conversion_details.html
+doc/dtd/web-app_2_3.dtd
 doc/index.html
 doc/libservlet.css
 doc/writing_applications.html
@@ -84,11 +88,14 @@ lib/Servlet/SingleThreadModel.pm
 lib/Servlet/UnavailableException.pm
 lib/Servlet/Util/Event.pm
 lib/Servlet/Util/Exception.pm
+lib/Servlet/Util/Principal.pm
 t/Servlet/Test/Context.pm
 t/Servlet/Test/Dummy.pm
 t/Servlet/Test/HttpRequest.pm
 t/Servlet/Test/HttpResponse.pm
+t/Servlet/Test/InputHandle.pm
 t/Servlet/Test/InputStream.pm
+t/Servlet/Test/OutputHandle.pm
 t/Servlet/Test/OutputStream.pm
 t/Servlet/Test/Request.pm
 t/Servlet/Test/Response.pm

@@ -6,6 +6,8 @@ use base qw(Servlet::ServletException);
 use strict;
 use warnings;
 
+__PACKAGE__->do_trace(1);
+
 sub new {
     my $type = shift;
     my $msg = shift;

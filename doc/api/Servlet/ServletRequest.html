@@ -45,7 +45,7 @@
   my $type = $request-&gt;getContentType();</PRE>
 <PRE>
   # gets request body as binary data
-  my $input = $request-&gt;getInputStream();</PRE>
+  my $input = $request-&gt;getInputHandle();</PRE>
 <PRE>
   # gets preferred locale
   my $locale = $request-&gt;getLocale();</PRE>
@@ -73,6 +73,8 @@
   # get a request dispatcher in order to do an include or forward
   my $dispatcher = $request-&gt;getRequestDispatcher($path);</PRE>
 <PRE>
+  my $scheme = $request-&gt;getScheme();</PRE>
+<PRE>
   my $server = $request-&gt;getServerName();</PRE>
 <PRE>
   my $port = $request-&gt;getServerPort();</PRE>
@@ -86,7 +88,7 @@ information to a servlet. The servlet container creates a request
 object and passes it as an argument to the servlet's <CODE>service()</CODE>
 method.</P>
 <P>A <STRONG>Servlet::ServletRequest</STRONG> object provides data including parameter
-name and values, attributes, and an input stream. Interfaces that
+name and values, attributes, and an input handle. Interfaces that
 extend ServletRequest can provide additional protocol-specific data
 (for example, HTTP data is provided by
 <STRONG>Servlet::Http::HttpServletRequest</STRONG>.</P>
@@ -131,7 +133,7 @@ encoding.
 <DT><STRONG><A NAME="item_getContentLength"><CODE>getContentLength()</CODE></A></STRONG><BR>
 <DD>
 Returns the length, in bytes, of the request body and made available
-by the input stream, or <EM>undef</EM> if the length is not known. For HTTP
+by the input handle, or <EM>undef</EM> if the length is not known. For HTTP
 servlets, same as the value of the CGI variable <EM>CONTENT_LENGTH</EM>.
 <P></P>
 <DT><STRONG><A NAME="item_getContentType"><CODE>getContentType()</CODE></A></STRONG><BR>
@@ -140,11 +142,11 @@ Returns the MIME type of the body of the request, or <EM>undef</EM> if the
 type is not known. For HTTP servlets, same as the value of the CGI
 variable <EM>CONTENT_TYPE</EM>.
 <P></P>
-<DT><STRONG><A NAME="item_getInputStream"><CODE>getInputStream()</CODE></A></STRONG><BR>
+<DT><STRONG><A NAME="item_getInputHandle"><CODE>getInputHandle()</CODE></A></STRONG><BR>
 <DD>
 Retrieves the body of the request as binary data using a
-<STRONG>Servlet::ServletInputStream</STRONG>. Either this method or <A HREF="#item_getReader"><CODE>getReader()</CODE></A>
-may be called to read the body, not both.
+<STRONG>IO::Handle</STRONG>. Either this method or <A HREF="#item_getReader"><CODE>getReader()</CODE></A> may be called to
+read the body, not both.
 <P><STRONG>Throws:</STRONG></P>
 <DL>
 <DT><STRONG><A NAME="item_Servlet%3A%3AUtil%3A%3AIllegalStateException"><STRONG>Servlet::Util::IllegalStateException</STRONG></A></STRONG><BR>
@@ -184,7 +186,7 @@ returned is equal to the first value in the array returned by
 <A HREF="#item_getParameterValues"><CODE>getParameterValues()</CODE></A>.</P>
 <P>If the parameter data was sent in the request body, such as occurs
 with an HTTP POST request, then reading the body directly via
-<A HREF="#item_getInputStream"><CODE>getInputStream()</CODE></A> or <A HREF="#item_getReader"><CODE>getReader()</CODE></A> can interfere with the execution
+<A HREF="#item_getInputHandle"><CODE>getInputHandle()</CODE></A> or <A HREF="#item_getReader"><CODE>getReader()</CODE></A> can interfere with the execution
 of this method.</P>
 <P><STRONG>Parameters:</STRONG></P>
 <DL>
@@ -230,7 +232,7 @@ variable <EM>SERVER_PROTOCOL</EM>.
 Retrieves the body of the request as character data using a
 <STRONG>XXX</STRONG>. The reader translates the character data according to the
 character encoding used on the body. Either this method or
-<A HREF="#item_getInputStream"><CODE>getInputStream()</CODE></A> may be called to read the body, not both.
+<A HREF="#item_getInputHandle"><CODE>getInputHandle()</CODE></A> may be called to read the body, not both.
 <P><STRONG>Throws:</STRONG></P>
 <DL>
 <DT><STRONG><A NAME="item_Servlet%3A%3AUtil%3A%3AUnsupportedEncodingExceptio"><STRONG>Servlet::Util::UnsupportedEncodingException</STRONG></A></STRONG><BR>
@@ -240,7 +242,7 @@ decoded
 <P></P>
 <DT><STRONG><STRONG>Servlet::Util::IllegalStateException</STRONG></STRONG><BR>
 <DD>
-if the <A HREF="#item_getInputStream"><CODE>getInputStream()</CODE></A> method has already been called for this
+if the <A HREF="#item_getInputHandle"><CODE>getInputHandle()</CODE></A> method has already been called for this
 request
 <P></P>
 <DT><STRONG><STRONG>Servlet::Util::IOException</STRONG></STRONG><BR>
@@ -349,8 +351,8 @@ if this is not a valid encoding
 <P>
 <HR>
 <H1><A NAME="see also">SEE ALSO</A></H1>
-<P><A HREF="../../api/Servlet/RequestDispatcher.html">the Servlet::RequestDispatcher manpage</A>,
-<A HREF="../../api/Servlet/ServletInputStream.html">the Servlet::ServletInputStream manpage</A></P>
+<P><A HREF="../../api/IO/Handle.html">the IO::Handle manpage</A>,
+<A HREF="../../api/Servlet/RequestDispatcher.html">the Servlet::RequestDispatcher manpage</A></P>
 <P>
 <HR>
 <H1><A NAME="author">AUTHOR</A></H1>

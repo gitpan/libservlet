@@ -30,7 +30,7 @@ Servlet::ServletRequest - servlet request interface
   my $type = $request->getContentType();
 
   # gets request body as binary data
-  my $input = $request->getInputStream();
+  my $input = $request->getInputHandle();
 
   # gets preferred locale
   my $locale = $request->getLocale();
@@ -58,6 +58,8 @@ Servlet::ServletRequest - servlet request interface
   # get a request dispatcher in order to do an include or forward
   my $dispatcher = $request->getRequestDispatcher($path);
 
+  my $scheme = $request->getScheme();
+
   my $server = $request->getServerName();
 
   my $port = $request->getServerPort();
@@ -72,7 +74,7 @@ object and passes it as an argument to the servlet's C<service()>
 method.
 
 A B<Servlet::ServletRequest> object provides data including parameter
-name and values, attributes, and an input stream. Interfaces that
+name and values, attributes, and an input handle. Interfaces that
 extend ServletRequest can provide additional protocol-specific data
 (for example, HTTP data is provided by
 B<Servlet::Http::HttpServletRequest>.
@@ -125,7 +127,7 @@ encoding.
 =item getContentLength()
 
 Returns the length, in bytes, of the request body and made available
-by the input stream, or I<undef> if the length is not known. For HTTP
+by the input handle, or I<undef> if the length is not known. For HTTP
 servlets, same as the value of the CGI variable I<CONTENT_LENGTH>.
 
 =item getContentType()
@@ -134,11 +136,11 @@ Returns the MIME type of the body of the request, or I<undef> if the
 type is not known. For HTTP servlets, same as the value of the CGI
 variable I<CONTENT_TYPE>.
 
-=item getInputStream()
+=item getInputHandle()
 
 Retrieves the body of the request as binary data using a
-B<Servlet::ServletInputStream>. Either this method or C<getReader()>
-may be called to read the body, not both.
+B<IO::Handle>. Either this method or C<getReader()> may be called to
+read the body, not both.
 
 B<Throws:>
 
@@ -186,7 +188,7 @@ C<getParameterValues()>.
 
 If the parameter data was sent in the request body, such as occurs
 with an HTTP POST request, then reading the body directly via
-C<getInputStream()> or C<getReader()> can interfere with the execution
+C<getInputHandle()> or C<getReader()> can interfere with the execution
 of this method.
 
 B<Parameters:>
@@ -246,7 +248,7 @@ variable I<SERVER_PROTOCOL>.
 Retrieves the body of the request as character data using a
 B<XXX>. The reader translates the character data according to the
 character encoding used on the body. Either this method or
-C<getInputStream()> may be called to read the body, not both.
+C<getInputHandle()> may be called to read the body, not both.
 
 B<Throws:>
 
@@ -259,7 +261,7 @@ decoded
 
 =item B<Servlet::Util::IllegalStateException>
 
-if the C<getInputStream()> method has already been called for this
+if the C<getInputHandle()> method has already been called for this
 request
 
 =item B<Servlet::Util::IOException>
@@ -398,8 +400,8 @@ if this is not a valid encoding
 
 =head1 SEE ALSO
 
-L<Servlet::RequestDispatcher>,
-L<Servlet::ServletInputStream>
+L<IO::Handle>,
+L<Servlet::RequestDispatcher>
 
 =head1 AUTHOR
 

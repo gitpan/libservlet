@@ -23,7 +23,7 @@ Servlet::ServletResponse - servlet response interface
 
   my $locale = $response->getLocale();
 
-  my $output = $response->getOutputStream();
+  my $output = $response->getOutputHandle();
 
   my $writer = $response->getWriter();
 
@@ -80,11 +80,10 @@ I<ISO-8859-1>.
 
 Returns the locale assigned to the response.
 
-=item getOutputStream()
+=item getOutputHandle()
 
-Returns a B<Servlet::ServletOutputStream> suitable for writing binary
-data in the response. The servlet container does not encode the binary
-data.
+Returns a B<IO::Handle> suitable for writing binary data in the
+response. The servlet container does not encode the binary data.
 
 Calling C<flush()> commits the response.
 
@@ -117,7 +116,7 @@ the character encoding used.
 
 Calling C<flush()> commits the response.
 
-Either this method or C<getOutputStream()> may be called to write the
+Either this method or C<getOutputHandle()> may be called to write the
 body, not both.
 
 B<Throws:>
@@ -130,7 +129,7 @@ if the charset specified in C<setContentType()> cannot be used
 
 =item B<Servlet::Util::IllegalStateException>
 
-if the C<getOutputStream()> method has already been called for this
+if the C<getOutputHandle()> method has already been called for this
 request
 
 =item B<Servlet::Util::IOException>
@@ -225,6 +224,21 @@ The length of the content being returned to the client
 
 =back
 
+=item setContentLength($len)
+
+Sets the length of the content body in the response. In HTTP servlets,
+this method sets the HTTP I<Content-Length> header.
+
+B<Parameters:>
+
+=over
+
+=item I<$len>
+
+The length of the content being returned to the client
+
+=back
+
 =item setContentType($type)
 
 Sets the content type of the response. The content type may include
@@ -266,7 +280,7 @@ The locale of the response
 
 =head1 SEE ALSO
 
-L<Servlet::ServletOutputStream>
+L<IO::Handle>
 
 =head1 AUTHOR
 

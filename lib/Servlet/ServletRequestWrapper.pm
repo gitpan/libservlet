@@ -48,10 +48,10 @@ sub getContentType {
     return $self->getRequest()->getContentType(@_);
 }
 
-sub getInputStream {
+sub getInputHandle {
     my $self = shift;
 
-    return $self->getRequest()->getInputStream(@_);
+    return $self->getRequest()->getInputHandle(@_);
 }
 
 sub getLocale {

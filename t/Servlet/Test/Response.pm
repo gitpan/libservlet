@@ -7,7 +7,7 @@ use fields qw(contentType);
 use strict;
 use warnings;
 
-use Servlet::Test::OutputStream ();
+use Servlet::Test::OutputHandle ();
 
 sub new {
     my $self = shift;
@@ -20,10 +20,10 @@ sub new {
     return $self;
 }
 
-sub getOutputStream {
+sub getOutputHandle {
     my $self = shift;
 
-    return Servlet::Test::OutputStream->new(@_);
+    return Servlet::Test::OutputHandle->new();
 }
 
 sub setContentType {

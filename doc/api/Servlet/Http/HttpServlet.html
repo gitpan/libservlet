@@ -145,7 +145,7 @@ to handle a GET request.
 supports an HTTP HEAD request. A HEAD request is a GET request that
 returns no body in the response, only the response headers.</P>
 <P>When overriding this method, read the request data, write the response
-headers, get the response's writer or output stream object, and
+headers, get the response's writer or output handle object, and
 finally, write the response data. It's best to include content type
 and encoding.</P>
 <P>The servlet container must write the headers before committing the
@@ -263,7 +263,7 @@ Called by the server (via the <A HREF="#item_service"><CODE>service()</CODE></A>
 to handle a POST request. The POST method allows the client to send
 data of unlimited length to the Web server.
 <P>When overriding this method, read the request data, write the response
-headers, get the response's writer or output stream object, and
+headers, get the response's writer or output handle object, and
 finally, write the response data. It's best to include content type
 and encoding.</P>
 <P>The servlet container must write the headers before committing the

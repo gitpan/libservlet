@@ -6,7 +6,7 @@ use warnings;
 
 use Test;
 
-BEGIN { plan tests => 27 }
+BEGIN { plan tests => 26 }
 
 use Servlet::ServletResponseWrapper ();
 use Servlet::Test::Response;
@@ -29,10 +29,9 @@ for my $method (@methods) {
     ok($rv, $method);
 }
 
-# returns an output stream object
-my $output = eval { $wres->getOutputStream() };
+# returns an output handle object
+my $output = eval { $wres->getOutputHandle() };
 ok(!$@);
-ok($output->isa("Servlet::ServletOutputStream"));
 
 exit;
 

@@ -73,7 +73,7 @@ sub doHead {
     my $request = shift;
     my $response = shift;
 
-    # use a response wrapper that eats the output stream but sets the
+    # use a response wrapper that eats the output handle but sets the
     # content length appropriately
 
     my $noBodyResponse =
@@ -173,7 +173,7 @@ sub doTrace {
 
     $response->setContentType('message/http');
     $response->setContentLength(length($str));
-    my $out = $response->getOutputStream();
+    my $out = $response->getOutputHandle();
     $out->print($str);
     $out->close();
 
@@ -260,7 +260,7 @@ use strict;
 use warnings;
 
 # simple response wrapper class that gets content length from output
-# stream class
+# handle class
 
 sub new {
     my $self = shift;
@@ -268,7 +268,7 @@ sub new {
     $self = fields::new($self) unless ref $self;
     $self->SUPER::new(@_);
 
-    $self->{output} = Servlet::Http::HttpServlet::NoBodyOutputStream->new();
+    $self->{output} = Servlet::Http::HttpServlet::NoBodyOutputHandle->new();
     $self->{writer} = undef;
     $self->{didSetContentLength} = undef;
 
@@ -292,7 +292,7 @@ sub setContentLength {
     return 1;
 }
 
-sub getOutputStream {
+sub getOutputHandle {
     my $self = shift;
 
     return $self->{output};
@@ -311,22 +311,21 @@ sub getWriter {
 
 1;
 
-package Servlet::Http::HttpServlet::NoBodyOutputStream;
+package Servlet::Http::HttpServlet::NoBodyOutputHandle;
 
-use base qw(Servlet::ServletOutputStream);
+use base qw(IO::Handle);
 use fields qw(contentLength);
 use strict;
 use warnings;
 
-# simple output stream class that eats the output data but calculates
+# simple output handle class that eats the output data but calculates
 # content length correctly
 
 sub new {
     my $self = shift;
 
-    $self = fields::new($self) unless ref $self;
-
-    $self->{contentLength} = 0;
+    $self = $self->SUPER::new(@_);
+    ${*self}{servlet_http_httpservlet_nobodyoutputhandle_contentlength} = 0;
 
     return $self;
 }
@@ -334,16 +333,22 @@ sub new {
 sub getContentLength {
     my $self = shift;
 
-    return $self->{contentLength};
+    return ${*self}{servlet_http_httpservlet_nobodyoutputhandle_contentlength};
 }
 
 sub print {
     my $self = shift;
 
-    my $len = 0;
-    for (@_) { $len += length $_ };
+    return $self->write(@_);
+}
 
-    $self->{contentLength} += $len;
+sub write {
+    my $self = shift;
+    my $str = shift;
+    my $len = shift || length $str;
+
+    ${*self}{servlet_http_httpservlet_nobodyoutputhandle_contentlength} +=
+        $len;
 
     return 1;
 }
@@ -495,7 +500,7 @@ supports an HTTP HEAD request. A HEAD request is a GET request that
 returns no body in the response, only the response headers.
 
 When overriding this method, read the request data, write the response
-headers, get the response's writer or output stream object, and
+headers, get the response's writer or output handle object, and
 finally, write the response data. It's best to include content type
 and encoding.
 
@@ -650,7 +655,7 @@ to handle a POST request. The POST method allows the client to send
 data of unlimited length to the Web server.
 
 When overriding this method, read the request data, write the response
-headers, get the response's writer or output stream object, and
+headers, get the response's writer or output handle object, and
 finally, write the response data. It's best to include content type
 and encoding.
 

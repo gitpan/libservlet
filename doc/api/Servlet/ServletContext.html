@@ -44,7 +44,7 @@
 <PRE>
   for my $uripath ($context-&gt;getResourcePaths()) {
       my $url = $context-&gt;getResource($uripath);
-      my $stream = $context-&gt;getResourceAsStream($uripath);
+      my $handle = $context-&gt;getResourceAsHandle($uripath);
       my $realpath = $context-&gt;getRealPath($uripath);
       my $dispatcher = $context-&gt;getRequestDispatcher($uripath);
   }</PRE>
@@ -232,10 +232,10 @@ execution.</P>
 <DD>
 the uri path to the resource
 <P></P></DL>
-<DT><STRONG><A NAME="item_getResourceAsStream"><CODE>getResourceAsStream($uripath)</CODE></A></STRONG><BR>
+<DT><STRONG><A NAME="item_getResourceAsHandle"><CODE>getResourceAsHandle($uripath)</CODE></A></STRONG><BR>
 <DD>
 Returns the resource located at the named uri path as an opened
-filehandle, or <EM>undef</EM> if no resource exists at the specified
+<STRONG>IO::Handle</STRONG>, or <EM>undef</EM> if no resource exists at the specified
 path).
 <P>The data in the filehandle can be of any type or length. The uri path
 must be specified according to the rules given in <A HREF="#item_getResource"><CODE>getResource()</CODE></A>.</P>
@@ -319,7 +319,7 @@ the attribute to be bound
 <P>
 <HR>
 <H1><A NAME="see also">SEE ALSO</A></H1>
-<P><EM>FileHandle</EM>,
+<P><A HREF="../../api/IO/Handle.html">the IO::Handle manpage</A>,
 <A HREF="../../api/Servlet/GenericServlet.html">the Servlet::GenericServlet manpage</A>,
 <A HREF="../../api/Servlet/RequestDispatcher.html">the Servlet::RequestDispatcher manpage</A>,
 <A HREF="../../api/Servlet/ServletConfig.html">the Servlet::ServletConfig manpage</A>,

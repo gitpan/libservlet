@@ -8,7 +8,8 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
               NAME         => 'libservlet',
               VERSION_FROM => 'lib/Servlet.pm',
-              PREREQ_PM    => { 'Exception::Class' => 0 },
+              PREREQ_PM    => { 'Exception::Class' => 0,
+                                'IO::Handle' => 0 },
              );
 
 package MY;
@@ -18,29 +19,17 @@ sub MY::postamble {
 
 POD2HTML=pod2html
 
-TOPFILES=TODO
+doc/api/%.html : lib/%.pm
+	@(echo generating $@; \
+	slashes=`$(FULLPERL) -e 'print "../" x ((split /\//, $$ARGV[0])-1)' $<`; \
+	$(POD2HTML) --htmlroot=$${slashes}api \
+	            --css=$${slashes}libservlet.css \
+	            --infile=$< \
+	            --outfile=$@)
 
-APIFILES=`$(FULLPERL) -MFile::Find -e 'sub trim { return unless m|\.pm$$|; s|\.pm$$||; $$name = "$$File::Find::dir/$$_"; $$name =~ s|^\./lib/||; print "$$name\n" }; find\(\&trim, "./lib"\)'`
+LIBSERVLET_HTML_1=$(subst .pm,.html,$(TO_INST_PM))
+LIBSERVLET_HTML=$(subst lib/,doc/api/,$(LIBSERVLET_HTML_1))
 
-html:  html-top html-api
-
-html-top:
-	@(for f in $(TOPFILES); do \
-		echo generating doc/$$f.html; \
-		$(POD2HTML) --htmlroot=./ \
-		            --css=./libservlet.css \
-		            --infile=$$f \
-		            --outfile=doc/$$f.html; \
-	done)
-
-html-api:
-	@(for f in $(APIFILES); do \
-		echo generating doc/api/$$f.html; \
-		slashes=`$(FULLPERL) -e 'print "../" x (split /\//, $$ARGV[0])' $$f`; \
-		$(POD2HTML) --htmlroot=$${slashes}api \
-		            --css=$${slashes}libservlet.css \
-		            --infile=lib/$$f.pm \
-		            --outfile=doc/api/$$f.html; \
-	done)
+html: pm_to_blib $(LIBSERVLET_HTML)
 );
 }

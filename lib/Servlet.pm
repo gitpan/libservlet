@@ -6,7 +6,7 @@ require 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.9.1';
+our $VERSION = '0.9.2';
 
 1;
 __END__

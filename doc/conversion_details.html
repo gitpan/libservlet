@@ -87,16 +87,13 @@ for event objects.
 </p>
 <h2><a name="i/o">I/O</a></h2>
 <p>
-It's very tempting to make the <a
-href="./api/Servlet/ServletInputStream.html"><strong>Servlet::ServletInputStream</strong></a>
-and <a
-href="./api/Servlet/ServletOutputStream.html"><strong>Servlet::ServletOutputStream</strong></a>
-interfaces extend <strong>IO::Handle</strong>. However, this would
-restrict the choice of implementations, and it would make methods
-available that the servlet container might wish to restrict. By making
-them interfaces, the servlet container developer can choose to extend
-<strong>IO::Handle</strong>, to delegate to an instance of that class,
-or any other mechanism.
+Perl's <strong>IO::Handle</strong> provides an excellent I/O subsystem
+with almost all of the functionality needed for input and output
+streams. It does not provide seeking functionality, leaving that to
+<strong>IO::Seekable</strong>, but I don't see that being a
+problem. Also, containers will likely provide instances of
+<strong>IO::Socket</strong> as input and output handles, at least some
+of the time, and that class is not seekable.
 </p>
 <h2><a name="locales">Locales</a></h2>
 <h2><a name="character encodings and conversions">Character Encodings

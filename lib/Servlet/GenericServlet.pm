@@ -73,7 +73,7 @@ sub init {
 
 sub log {
     my $self = shift;
-    my $msg = shift;
+    my $msg = shift || '';
     my $e = shift;
 
     my $logmsg = sprintf "%s: %s", $self->getServletName(), $msg;

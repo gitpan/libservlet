@@ -29,7 +29,7 @@ Servlet::ServletContext - servlet context interface
 
   for my $uripath ($context->getResourcePaths()) {
       my $url = $context->getResource($uripath);
-      my $stream = $context->getResourceAsStream($uripath);
+      my $handle = $context->getResourceAsHandle($uripath);
       my $realpath = $context->getRealPath($uripath);
       my $dispatcher = $context->getRequestDispatcher($uripath);
   }
@@ -271,10 +271,10 @@ the uri path to the resource
 
 =back
 
-=item getResourceAsStream($uripath)
+=item getResourceAsHandle($uripath)
 
 Returns the resource located at the named uri path as an opened
-filehandle, or I<undef> if no resource exists at the specified
+B<IO::Handle>, or I<undef> if no resource exists at the specified
 path).
 
 The data in the filehandle can be of any type or length. The uri path
@@ -384,7 +384,7 @@ the attribute to be bound
 
 =head1 SEE ALSO
 
-L<FileHandle>,
+L<IO::Handle>,
 L<Servlet::GenericServlet>,
 L<Servlet::RequestDispatcher>,
 L<Servlet::ServletConfig>,

@@ -6,12 +6,12 @@ use base qw(Servlet::ServletRequest Servlet::Test::Dummy);
 use strict;
 use warnings;
 
-use Servlet::Test::InputStream ();
+use Servlet::Test::InputHandle ();
 
-sub getInputStream {
+sub getInputHandle {
     my $self = shift;
 
-    return Servlet::Test::InputStream->new(@_);
+    return Servlet::Test::InputHandle->new();
 }
 
 1;
