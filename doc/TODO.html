@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<TITLE>TODO - task list</TITLE>
+<LINK REL="stylesheet" HREF="./libservlet.css" TYPE="text/css">
+<LINK REV="made" HREF="mailto:feedback@suse.de">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+
+<UL>
+
+	<LI><A HREF="#name">NAME</A></LI>
+	<LI><A HREF="#tasks">TASKS</A></LI>
+	<UL>
+
+		<LI><A HREF="#design">Design</A></LI>
+		<LI><A HREF="#code">Code</A></LI>
+		<LI><A HREF="#documentation">Documentation</A></LI>
+	</UL>
+
+</UL>
+<!-- INDEX END -->
+
+<HR>
+<P>
+<HR>
+<H1><A NAME="name">NAME</A></H1>
+<P>TODO - task list</P>
+<P>
+<HR>
+<H1><A NAME="tasks">TASKS</A></H1>
+<P>
+<H2><A NAME="design">Design</A></H2>
+<OL>
+<LI>
+What is the Locale API? Does it interface to the OS locale system?
+<P></P>
+<LI>
+Provide Reader/Writer classes that do character conversions under the
+hood.
+<P></P>
+<LI>
+What is the Principal API?
+<P></P></OL>
+<P>
+<H2><A NAME="code">Code</A></H2>
+<OL>
+<LI>
+For the <CODE>doOptions()</CODE> method of <STRONG>Servlet::Http::HttpServlet</STRONG>, look
+only at descendent classes when determining available HTTP methods
+<P></P>
+<LI>
+Is there a way to implement <CODE>available()</CODE> on
+<STRONG>Servlet::ServletInputStream</STRONG>? Is it sufficient to know that a stream
+is readable, even if there's no way to tell how many bytes are
+available?
+<P></P></OL>
+<P>
+<H2><A NAME="documentation">Documentation</A></H2>
+<OL>
+<LI>
+complete ``Writing Servlet Applications''
+<P></P>
+<LI>
+create frameset for API docs
+<P></P></OL>
+
+</BODY>
+
+</HTML>
